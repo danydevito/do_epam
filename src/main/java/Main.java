@@ -9,8 +9,6 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         int choice = 1;
-        String[][] xFields = new String[3][3];
-        String[][] yFields = new String[3][3];
 
         System.out.println("Kółko krzyżyk");
         System.out.println();
@@ -23,8 +21,7 @@ public class Main {
             choice = scanner.nextInt();
 
             if (choice==1){
-                Board board = new Board();
-                board.drawBoard(xFields, yFields);
+                Game game = new Game();
             }else if (choice==2){
                 System.out.println("Koniec.");
             }else {
