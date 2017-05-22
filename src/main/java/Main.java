@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -5,27 +8,31 @@ import java.util.Scanner;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public int scoreX=0, scoreY=0;
 
-        Scanner scanner = new Scanner(System.in);
-        int choice = 1;
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String choice = "n";
 
         System.out.println("Kółko krzyżyk");
         System.out.println();
-        while (choice != 2){
+        while (choice!="q"){
 
             System.out.println("MENU");
-            System.out.println("___Nowa gra___ (1)");
-            System.out.println("___Zakończ____ (2)");
+            System.out.println("___Nowa gra___ (n)");
+            System.out.println("___Zakończ____ (q)");
             System.out.println("Wybierz opcję i zatwierdz klikając ENTER: ");
-            choice = scanner.nextInt();
+                try {
+                    choice = br.readLine();
+                }catch (IOException e) {
+                    System.out.println("Niewłaściwa opcja");
+                }
 
-            if (choice==1){
+            if (choice.equals("n")){
                 Game game = new Game();
-            }else if (choice==2){
+            }else if (choice.equals("q")){
                 System.out.println("Koniec.");
-            }else {
-                System.out.println("Niewłaściwa opcja! Spróbuj ponownie");
             }
         }
     }

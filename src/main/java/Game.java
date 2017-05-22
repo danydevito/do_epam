@@ -1,10 +1,12 @@
+import java.io.IOException;
+
 /**
  * Created by daniel on 2017-05-22.
  */
 public class Game {
 
     int x,y, scoreX, scoreY;
-    int playerNo;
+    int playerNo, queue=1;
     boolean end = false;
     String[][] cells = new String[3][3];
     String message, score;
@@ -12,7 +14,7 @@ public class Game {
     Player playerX = new Player();
     Player playerO = new Player();
 
-    public Game(){
+    public Game() throws IOException {
 
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -34,7 +36,13 @@ public class Game {
             playerNo = 1;
             board.drawBoard(cells, playerX.message1, playerO.message2);
             translator(board.cell());
-            playerX.fields[x][y] = new String("X");
+            if (playerX.fields[x][y].equals("X")||playerO.fields[x][y].equals("O")){
+                System.out.println("Pole pełne! Tracisz ruch.");
+            }else {
+                playerX.fields[x][y] = new String("X");
+                playerO.fields[x][y] = new String("X");
+                cells[x][y] = "X";
+            }
 //            for (int i=0; i<3; i++){
 //                for (int j=0; j<3; j++){
 //                    System.out.print(playerX.fields[i][j]);
@@ -43,18 +51,23 @@ public class Game {
 //            }
             end = playerX.isWin(playerX.fields);
             if (end) scoreX++;
-            cells[x][y] = "X";
             if (!end) {
                 playerNo--;
                 board.drawBoard(cells, playerX.message2, playerO.message1);
                 translator(board.cell());
-                playerO.fields[x][y] = new String("O");
+                if (playerX.fields[x][y].equals("X")||playerO.fields[x][y].equals("O")){
+                    System.out.println("Pole pełne! Tracisz ruch.");
+                }else {
+                    playerO.fields[x][y] = new String("O");
+                    playerX.fields[x][y] = new String("O");
+                    cells[x][y] = "O";
+                }
                 end = playerO.isWin(playerO.fields);
                 if (end) scoreY++;
-                cells[x][y] = "O";
             }
+            queue++;
 
-        }while (!end);
+        }while (!end & queue<10);
 
         if (playerNo==1) message = "Zwycięstwo odniósł gracz X!";
         else message = "Zwycięztwo odniósł gracz Y!";

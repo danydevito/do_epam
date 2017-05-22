@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -5,7 +8,7 @@ import java.util.Scanner;
  */
 public class Board {
 
-    Scanner scanner = new Scanner(System.in);
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public void drawBoard(String[][] cells, String message1, String message2 ){
         System.out.println("Jeśli podasz złą współrzędną tracisz ruch!");
@@ -22,12 +25,21 @@ public class Board {
         System.out.println("Player X: "+message1);
         System.out.println("Player O: "+message2);
     }
-    String cell(){
-        String answer = scanner.nextLine();
-        answer = answer.toLowerCase();
-        if (answer.equals("a1") || answer.equals("a2") || answer.equals("a3") || answer.equals("b1") || answer.equals("b2")
-                || answer.equals("b3") || answer.equals("c1") || answer.equals("c2") || answer.equals("c3")) return answer;
-        else return "zla wspolrzedna";
+    String cell() throws IOException {
+        boolean flag=true;
+        String answer;
+        do {
+            answer = br.readLine();
+            answer = answer.toLowerCase();
+            if (answer.equals("a1") || answer.equals("a2") || answer.equals("a3") || answer.equals("b1") || answer.equals("b2")
+                    || answer.equals("b3") || answer.equals("c1") || answer.equals("c2") || answer.equals("c3"))flag=true;
+
+            else {
+                System.out.println("Niema takiego pola! Podaj istniejącą współrzędną:");
+                flag=false;
+            }
+        }while (!flag);
+        return answer;
     }
 
     public void winBoard(String[][] cells, String message1, String message2){
