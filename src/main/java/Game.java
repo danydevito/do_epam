@@ -76,7 +76,7 @@ public class Game {
         else if (answer.equals("c1")){x=0; y=2;}
         else if (answer.equals("c2")){x=1; y=2;}
         else if (answer.equals("c3")){x=2; y=2;}
-        else System.out.println("zle");
+        else System.out.println("zla wspolrzedna");
     }
 
 

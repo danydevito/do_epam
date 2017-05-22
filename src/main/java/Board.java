@@ -8,7 +8,7 @@ public class Board {
     Scanner scanner = new Scanner(System.in);
 
     public void drawBoard(String[][] cells, String message1, String message2 ){
-        System.out.println("Zaczyna gracz X");
+        System.out.println("Jeśli podasz złą współrzędną tracisz ruch!");
         System.out.println();
         System.out.println("     A   B   C");
         System.out.println("    --- --- --- ");
