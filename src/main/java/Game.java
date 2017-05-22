@@ -13,16 +13,40 @@ public class Game {
 
     public Game(){
 
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                cells[i][j] = " ";
+            }
+        }
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                playerX.fields[i][j] = i+" "+j;
+            }
+        }
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                playerO.fields[i][j] = i+" "+j;
+            }
+        }
+
         do {
             playerNo = 1;
             board.drawBoard(cells, playerX.message1, playerO.message2);
             translator(board.cell());
-            playerX.fields[x][y] = "X";
+            playerX.fields[x][y] = new String("X");
+            for (int i=0; i<3; i++){
+                for (int j=0; j<3; j++){
+                    System.out.print(playerX.fields[i][j]);
+                }
+                System.out.println();
+            }
+            end = playerX.isWin(playerX.fields);
             cells[x][y] = "X";
             playerNo--;
             board.drawBoard(cells, playerX.message2, playerO.message1);
             translator(board.cell());
-            playerO.fields[x][y] = "O";
+            playerO.fields[x][y] = new String("O");
+            end = playerO.isWin(playerO.fields);
             cells[x][y] = "O";
 
         }while (!end);
