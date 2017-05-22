@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by daniel on 2017-05-22.
@@ -11,8 +12,10 @@ public class Game {
     String[][] cells = new String[3][3];
     String message, score;
     Board board = new Board();
+    CellsCheck cellsCheck = new CellsCheck();
     Player playerX = new Player();
     Player playerO = new Player();
+
 
     public Game() throws IOException {
 
@@ -34,34 +37,20 @@ public class Game {
 
         do {
             playerNo = 1;
-            board.drawBoard(cells, playerX.message1, playerO.message2);
+            board.drawBoard(cells, playerX.message1);
             translator(board.cell());
-            if (playerX.fields[x][y].equals("X")||playerO.fields[x][y].equals("O")){
-                System.out.println("Pole pełne! Tracisz ruch.");
-            }else {
-                playerX.fields[x][y] = new String("X");
-                playerO.fields[x][y] = new String("X");
-                cells[x][y] = "X";
-            }
-//            for (int i=0; i<3; i++){
-//                for (int j=0; j<3; j++){
-//                    System.out.print(playerX.fields[i][j]);
-//                }
-//                System.out.println();
-//            }
+                    playerX.fields[x][y] = new String("X");
+                    playerO.fields[x][y] = new String("X");
+                    cells[x][y] = "X";
             end = playerX.isWin(playerX.fields);
             if (end) scoreX++;
             if (!end) {
                 playerNo--;
-                board.drawBoard(cells, playerX.message2, playerO.message1);
+                board.drawBoard(cells, playerX.message2);
                 translator(board.cell());
-                if (playerX.fields[x][y].equals("X")||playerO.fields[x][y].equals("O")){
-                    System.out.println("Pole pełne! Tracisz ruch.");
-                }else {
                     playerO.fields[x][y] = new String("O");
                     playerX.fields[x][y] = new String("O");
                     cells[x][y] = "O";
-                }
                 end = playerO.isWin(playerO.fields);
                 if (end) scoreY++;
             }
@@ -70,9 +59,8 @@ public class Game {
         }while (!end & queue<10);
 
         if (playerNo==1) message = "Zwycięstwo odniósł gracz X!";
-        else message = "Zwycięztwo odniósł gracz Y!";
-        score = "Aktualny wynik   "+scoreX+" : "+scoreY;
-        board.winBoard(cells,message,score);
+        else message = "Zwycięstwo odniósł gracz Y!";
+        board.drawBoard(cells,message);
 
 
 
@@ -90,6 +78,13 @@ public class Game {
         else if (answer.equals("c2")){x=1; y=2;}
         else if (answer.equals("c3")){x=2; y=2;}
         else System.out.println("zla wspolrzedna");
+    }
+
+    int getScoreX(){
+        return scoreX;
+    }
+    int getScoreY(){
+        return scoreY;
     }
 
 
