@@ -7,17 +7,16 @@ import java.util.ArrayList;
 public class Game {
 
     int x,y, scoreX, scoreY;
-    int playerNo, queue=1;
+    int playerNo, queue=0;
     boolean end = false;
     String[][] cells = new String[3][3];
-    String message, score;
+    String message;
     Board board = new Board();
-    CellsCheck cellsCheck = new CellsCheck();
     Player playerX = new Player();
     Player playerO = new Player();
 
 
-    public Game() throws IOException {
+    public Game(String choice) throws IOException {
 
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -36,15 +35,18 @@ public class Game {
         }
 
         do {
-            playerNo = 1;
-            board.drawBoard(cells, playerX.message1);
-            translator(board.cell());
-                    playerX.fields[x][y] = new String("X");
-                    playerO.fields[x][y] = new String("X");
-                    cells[x][y] = "X";
-            end = playerX.isWin(playerX.fields);
-            if (end) scoreX++;
-            if (!end) {
+            if (queue<9) {
+                playerNo = 1;
+                board.drawBoard(cells, playerX.message1);
+                translator(board.cell());
+                playerX.fields[x][y] = new String("X");
+                playerO.fields[x][y] = new String("X");
+                cells[x][y] = "X";
+                end = playerX.isWin(playerX.fields);
+                queue++;
+                if (end) scoreX++;
+            }
+            if ((!end)&&(queue<9)) {
                 playerNo--;
                 board.drawBoard(cells, playerX.message2);
                 translator(board.cell());
@@ -55,12 +57,18 @@ public class Game {
                 if (end) scoreY++;
             }
             queue++;
+            if ((queue>9)&&(!end)){
+                System.out.println("Remis!");
+            }
+            else{
+                if (playerNo==1) message = "Zwycięstwo odniósł gracz X!";
+                else message = "Zwycięstwo odniósł gracz Y!";
+            }
+            board.drawBoard(cells,message);
 
-        }while (!end & queue<10);
+        }while (((!end) && (queue<10)));
 
-        if (playerNo==1) message = "Zwycięstwo odniósł gracz X!";
-        else message = "Zwycięstwo odniósł gracz Y!";
-        board.drawBoard(cells,message);
+
 
 
 
