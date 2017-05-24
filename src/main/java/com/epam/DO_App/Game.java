@@ -1,13 +1,13 @@
+package com.epam.DO_App;
+
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by daniel on 2017-05-22.
  */
-public class Game {
+public class Game implements GameAble{
 
-    int x,y, scoreX, scoreY;
-    int playerNo, queue;
+    int x,y, queue;
     boolean end = false;
     String[][] cells = new String[3][3];
     String message, player;
@@ -21,21 +21,9 @@ public class Game {
         if (choice.equals("x"))queue=0;
         else if (choice.equals("o"))queue=1;
 
-        for (int i=0; i<3; i++){
-            for (int j=0; j<3; j++){
-                cells[i][j] = " ";
-            }
-        }
-        for (int i=0; i<3; i++){
-            for (int j=0; j<3; j++){
-                playerX.fields[i][j] = i+" "+j;
-            }
-        }
-        for (int i=0; i<3; i++){
-            for (int j=0; j<3; j++){
-                playerO.fields[i][j] = i+" "+j;
-            }
-        }
+        cells = createArrays(cells,0);
+        playerX.fields = createArrays(playerX.fields,1);
+        playerO.fields = createArrays(playerO.fields,1);
 
         do {
             if (((queue%2==0)||(queue>1))&&(!isFull(cells))) {
@@ -46,25 +34,16 @@ public class Game {
                 cells[x][y] = "X";
                 end = playerX.isWin(playerX.fields);
                 queue++;
-                if (end) {
-                    System.out.println("Wygrałeś!");
-                    scoreX++;
-                    player="X";
-                }
+                if (end) ending("X");
             }
             if ((!end)&&(!isFull(cells))) {
-                player="o";
                 board.drawBoard(cells, playerO.message2);
                 translator(board.cell());
                     playerO.fields[x][y] = new String("O");
                     playerX.fields[x][y] = new String("O");
                     cells[x][y] = "O";
                 end = playerO.isWin(playerO.fields);
-                if (end){
-                    System.out.println("Wygrałeś!");
-                    scoreY++;
-                    player="O";
-                }
+                if (end)ending("O");
             }
             queue++;
             if ((queue>9)&&(!end)){
@@ -80,7 +59,7 @@ public class Game {
 
     }
 
-    void translator(String answer){
+    public void translator(String answer){
         answer = answer.toLowerCase();
         if (answer.equals("a1")){x=0; y=0;}
         else if (answer.equals("a2")){x=1; y=0;}
@@ -93,7 +72,23 @@ public class Game {
         else if (answer.equals("c3")){x=2; y=2;}
         else System.out.println("zla wspolrzedna");
     }
-    boolean isFull(String[][] array){
+    public void ending(String player){
+        System.out.println("Wygrałeś!");
+        if (player.equals("X"))playerX.score++;
+        else playerO.score++;
+        this.player=player;
+    }
+    String[][]  createArrays(String[][] array, int fill){
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                if (fill==0){
+                array[i][j] = " ";}
+                else array[i][j] = i+" "+j;
+            }
+        }
+        return array;
+    }
+    public boolean isFull(String[][] array){
         boolean flag=true;
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -106,11 +101,11 @@ public class Game {
         return flag;
     }
 
-    int getScoreX(){
-        return scoreX;
+    public int getScoreX(){
+        return playerX.score;
     }
-    int getScoreY(){
-        return scoreY;
+    public int getScoreO(){
+        return playerO.score;
     }
 
 

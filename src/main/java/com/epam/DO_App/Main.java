@@ -1,7 +1,8 @@
+package com.epam.DO_App;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 /**
  * Created by daniel on 2017-05-22.
@@ -10,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        int scoreX=0, scoreY=0;
+        int scoreX=0, scoreO=0;
         String choice="";
         Main main = new Main();
 
@@ -29,8 +30,8 @@ public class Main {
                 choice = main.reading("o","x");
                 Game game = new Game(choice);
                 scoreX += game.getScoreX();
-                scoreY += game.getScoreY();
-                System.out.println("Aktualny wynik X-O "+scoreX+" : "+scoreY);
+                scoreO += game.getScoreO();
+                System.out.println("Aktualny wynik X-O "+scoreX+" : "+scoreO);
             }else if (choice.equals("q")){
                 System.out.println("Koniec.");
             }
@@ -44,7 +45,7 @@ public class Main {
         do{
             if (error>0) System.out.println("Niewłaściwa opcja. Spróbuj ponownie.");
             try {
-                choice = br.readLine();
+                choice = br.readLine().toLowerCase();
             }catch (IOException e){
                 System.out.println("To nie jest dopuszczalna opcja!");
             }
