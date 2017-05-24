@@ -10,7 +10,7 @@ public class Game {
     int playerNo, queue;
     boolean end = false;
     String[][] cells = new String[3][3];
-    String message;
+    String message, player;
     Board board = new Board();
     Player playerX = new Player();
     Player playerO = new Player();
@@ -46,24 +46,32 @@ public class Game {
                 cells[x][y] = "X";
                 end = playerX.isWin(playerX.fields);
                 queue++;
-                if (end) scoreX++;
+                if (end) {
+                    System.out.println("Wygrałeś!");
+                    scoreX++;
+                    player="X";
+                }
             }
             if ((!end)&&(!isFull(cells))) {
-                board.drawBoard(cells, playerX.message2);
+                player="o";
+                board.drawBoard(cells, playerO.message2);
                 translator(board.cell());
                     playerO.fields[x][y] = new String("O");
                     playerX.fields[x][y] = new String("O");
                     cells[x][y] = "O";
                 end = playerO.isWin(playerO.fields);
-                if (end) scoreY++;
+                if (end){
+                    System.out.println("Wygrałeś!");
+                    scoreY++;
+                    player="O";
+                }
             }
             queue++;
             if ((queue>9)&&(!end)){
                 System.out.println("Remis!");
             }
             if (end){
-                if (playerX.isWin(playerX.fields)) message = "Zwycięstwo odniósł gracz X!";
-                else if (playerO.isWin(playerO.fields))message = "Zwycięstwo odniósł gracz O!";
+                message = "Zwycięstwo odniósł gracz "+player+"!";
                 board.drawBoard(cells,message);
             }
 

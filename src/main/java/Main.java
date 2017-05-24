@@ -30,7 +30,7 @@ public class Main {
                 Game game = new Game(choice);
                 scoreX += game.getScoreX();
                 scoreY += game.getScoreY();
-                System.out.println("Aktualny wynik X-Y "+scoreX+" : "+scoreY);
+                System.out.println("Aktualny wynik X-O "+scoreX+" : "+scoreY);
             }else if (choice.equals("q")){
                 System.out.println("Koniec.");
             }
