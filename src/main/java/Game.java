@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Game {
 
     int x,y, scoreX, scoreY;
-    int playerNo, queue=0;
+    int playerNo, queue;
     boolean end = false;
     String[][] cells = new String[3][3];
     String message;
@@ -17,6 +17,9 @@ public class Game {
 
 
     public Game(String choice) throws IOException {
+
+        if (choice.equals("x"))queue=0;
+        else if (choice.equals("o"))queue=1;
 
         for (int i=0; i<3; i++){
             for (int j=0; j<3; j++){
@@ -35,8 +38,7 @@ public class Game {
         }
 
         do {
-            if (queue<9) {
-                playerNo = 1;
+            if (((queue%2==0)||(queue>1))&&(!isFull(cells))) {
                 board.drawBoard(cells, playerX.message1);
                 translator(board.cell());
                 playerX.fields[x][y] = new String("X");
@@ -46,8 +48,7 @@ public class Game {
                 queue++;
                 if (end) scoreX++;
             }
-            if ((!end)&&(queue<9)) {
-                playerNo--;
+            if ((!end)&&(!isFull(cells))) {
                 board.drawBoard(cells, playerX.message2);
                 translator(board.cell());
                     playerO.fields[x][y] = new String("O");
@@ -60,16 +61,13 @@ public class Game {
             if ((queue>9)&&(!end)){
                 System.out.println("Remis!");
             }
-            else{
-                if (playerNo==1) message = "Zwycięstwo odniósł gracz X!";
-                else message = "Zwycięstwo odniósł gracz Y!";
+            if (end){
+                if (playerX.isWin(playerX.fields)) message = "Zwycięstwo odniósł gracz X!";
+                else if (playerO.isWin(playerO.fields))message = "Zwycięstwo odniósł gracz O!";
+                board.drawBoard(cells,message);
             }
-            board.drawBoard(cells,message);
 
         }while (((!end) && (queue<10)));
-
-
-
 
 
     }
@@ -86,6 +84,18 @@ public class Game {
         else if (answer.equals("c2")){x=1; y=2;}
         else if (answer.equals("c3")){x=2; y=2;}
         else System.out.println("zla wspolrzedna");
+    }
+    boolean isFull(String[][] array){
+        boolean flag=true;
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                if (array[i][j].equals(" ")){
+                    flag=false;
+                    break;
+                }
+            }
+        }
+        return flag;
     }
 
     int getScoreX(){

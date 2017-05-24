@@ -14,7 +14,6 @@ public class Board {
     ArrayList<String> list = cellsCheck.fillList();
 
     public void drawBoard(String[][] cells, String message){
-        System.out.println("Jeśli podasz złą współrzędną tracisz ruch!");
         System.out.println();
         System.out.println("     A   B   C");
         System.out.println("    --- --- --- ");

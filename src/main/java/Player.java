@@ -4,8 +4,8 @@
 public class Player {
 
     String [][] fields = new String[3][3];
-    String message1 = "Gracz X, podaj współrzędne pola (gracz Y czeka na swój ruch)";
-    String message2 = "Gracz Y, podaj współrzędne pola (gracz X czeka na swój ruch)";
+    String message1 = "Gracz X, podaj współrzędne pola (gracz O czeka na swój ruch)";
+    String message2 = "Gracz O, podaj współrzędne pola (gracz X czeka na swój ruch)";
 
     boolean isWin(String[][] winning){
         if (winning[0][0].equals(winning[0][1]) && winning[0][0].equals(winning[0][2])) {
