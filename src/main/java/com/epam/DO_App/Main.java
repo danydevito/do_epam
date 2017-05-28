@@ -30,7 +30,7 @@ public class Main {
                 int size = main.readingSize();
                 System.out.println("Kto zaczyna grę? (o/x)");
                 choice = main.reading("o","x");
-                Game game = new Game(choice);
+                Game game = new Game(choice, size);
                 scoreX += game.getScoreX();
                 scoreO += game.getScoreO();
                 System.out.println("Aktualny wynik X-O "+scoreX+" : "+scoreO);

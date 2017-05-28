@@ -11,5 +11,5 @@ public interface GameAble {
 
     int getScoreX();
     int getScoreO();
-    boolean isFull(String[][] array);
+    boolean isFull(String[][] array, int size);
 }

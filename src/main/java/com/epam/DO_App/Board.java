@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by daniel on 2017-05-22.
@@ -15,17 +14,26 @@ public class Board {
     CellsCheck cellsCheck = new CellsCheck();
     ArrayList<String> list = cellsCheck.fillList();
 
-    public void drawBoard(String[][] cells, String message){
+    public void drawBoard(String[][] cells, String message, int size){
+        String header = "      A   B   C   D   E   F   G   H   I";
+        System.out.println(header.substring(1,(4*size+3)));
+        System.out.print("   ");
+        for (int k=0; k<size; k++){
+            System.out.print(" ---");
+        }
         System.out.println();
-        System.out.println("     A   B   C");
-        System.out.println("    --- --- --- ");
-        System.out.println(" 1 | "+cells[0][0]+" | "+cells[0][1]+" | "+cells[0][2]+" |");
-        System.out.println("    --- --- ---");
-        System.out.println(" 2 | "+cells[1][0]+" | "+cells[1][1]+" | "+cells[1][2]+" |");
-        System.out.println("    --- --- ---");
-        System.out.println(" 3 | "+cells[2][0]+" | "+cells[2][1]+" | "+cells[2][2]+" |");
-        System.out.println("    --- --- ---");
-        System.out.println();
+        for (int i=0; i<size; i++){
+            System.out.print(" "+(i+1)+" |");
+            for (int j=0; j<size; j++){
+                System.out.print(" "+cells[i][j]+" |");
+            }
+            System.out.println();
+            System.out.print("   ");
+            for (int k=0; k<size; k++){
+                System.out.print(" ---");
+            }
+            System.out.println();
+        }
         System.out.println(message);
     }
     String cell() throws IOException {
