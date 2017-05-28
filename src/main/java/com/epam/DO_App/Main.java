@@ -26,6 +26,8 @@ public class Main {
             choice = main.reading("n","q");
             if (choice.equals("n")){
                 System.out.println();
+                System.out.println("Podaj wymiar planszy (3-9)");
+                int size = main.readingSize();
                 System.out.println("Kto zaczyna grę? (o/x)");
                 choice = main.reading("o","x");
                 Game game = new Game(choice);
@@ -51,6 +53,21 @@ public class Main {
             }
             error++;
         }while (!(choice.equals(op1))&&!(choice.equals(op2)));
+        return choice;
+    }
+    int readingSize() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int choice = 0;
+        int error=0;
+        do{
+            if (error>0) System.out.println("Podana wartość musi być liczbą z zakresu (3-9)! Spróbuj ponownie.");
+            try {
+                choice = Integer.parseInt(br.readLine());
+            }catch (NumberFormatException e){
+                System.out.println("To nie jest liczba!");
+            }
+            error++;
+        }while (!((choice>2)&&(choice<10)));
         return choice;
     }
 }

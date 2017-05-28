@@ -53,10 +53,7 @@ public class Game implements GameAble{
                 message = "Zwycięstwo odniósł gracz "+player+"!";
                 board.drawBoard(cells,message);
             }
-
         }while (((!end) && (queue<10)));
-
-
     }
 
     public void translator(String answer){
@@ -100,13 +97,10 @@ public class Game implements GameAble{
         }
         return flag;
     }
-
     public int getScoreX(){
         return playerX.score;
     }
     public int getScoreO(){
         return playerO.score;
     }
-
-
 }
