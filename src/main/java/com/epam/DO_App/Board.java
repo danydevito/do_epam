@@ -8,11 +8,11 @@ import java.util.ArrayList;
 /**
  * Created by daniel on 2017-05-22.
  */
-public class Board {
+public class Board{
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     CellsCheck cellsCheck = new CellsCheck();
-    ArrayList<String> list = cellsCheck.fillList();
+
 
     public void drawBoard(String[][] cells, String message, int size){
         String header = "      A   B   C   D   E   F   G   H   I";
@@ -36,14 +36,14 @@ public class Board {
         }
         System.out.println(message);
     }
-    String cell() throws IOException {
+    String cell(int size, ArrayList<String> list) throws IOException {
         boolean flag;
         String answer;
         do {
             answer = br.readLine().toLowerCase();
             if (cellsCheck.checkListContain(list, answer)) {
                 flag=true;
-                cellsCheck.removeItem(answer);
+                cellsCheck.removeItem(list,answer);
             }
             else {
                 System.out.println("Nie ma takiego pola lub jest już pełne! Podaj nową współrzędną:");
