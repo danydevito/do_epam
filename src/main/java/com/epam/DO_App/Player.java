@@ -13,20 +13,42 @@ public class Player {
     boolean isWin(String[][] winning,int size, String sign) {
         String row=" ", chain;
         boolean flag=false;
+        int blank=0;
         switch (size){
-            case 3: row=sign+sign+sign;
+            case 3: {
+                row=sign+sign+sign;
+                blank=2;
+            }
             break;
-            case 4: row=sign+sign+sign+sign;
+            case 4: {
+                blank=3;
+                row=sign+sign+sign+sign;
+            }
             break;
-            case 5: row=sign+sign+sign+sign;
+            case 5: {
+                blank=3;
+                row=sign+sign+sign+sign;
+            }
             break;
-            case 6: row=sign+sign+sign+sign;
+            case 6: {
+                blank=3;
+                row=sign+sign+sign+sign;
+            }
             break;
-            case 7: row=sign+sign+sign+sign;
+            case 7: {
+                blank=3;
+                row=sign+sign+sign+sign;
+            }
             break;
-            case 8: row=sign+sign+sign+sign+sign;
+            case 8: {
+                blank=4;
+                row=sign+sign+sign+sign+sign;
+            }
             break;
-            case 9: row=sign+sign+sign+sign+sign;
+            case 9: {
+                blank=4;
+                row=sign+sign+sign+sign+sign;
+            }
             break;
         }
         for (int i=0; i<size; i++){
@@ -41,6 +63,44 @@ public class Player {
             for (int j=0; j<size; j++){
                 chain += winning[j][i];
                 if (chain.contains(row)) flag=true;
+            }
+        }
+        for (int i=0; i<size-blank; i++) {
+            for (int j = blank; j < size; j++) {
+                if (winning[i][j].equals(sign)) {
+                    if (winning[i][j].equals(winning[i + 1][j - 1])) {
+                        if (winning[i + 1][j - 1].equals(winning[i + 2][j - 2])) {
+                            if (blank==2) flag = true;
+                            else if (winning[i+2][j-2].equals(winning[i+3][j-3])){
+                                if (blank==3){
+                                    flag=true;
+                                }
+                                else if (winning[i+3][j-3].equals(winning[i+4][j-4])){
+                                    if (blank==4) flag=true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (int i=0; i<size-blank; i++) {
+            for (int j = 0; j < size-blank; j++) {
+                if (winning[i][j].equals(sign)) {
+                    if (winning[i][j].equals(winning[i + 1][j + 1])) {
+                        if (winning[i + 1][j + 1].equals(winning[i + 2][j + 2])) {
+                            if (blank==2) flag = true;
+                            else if (winning[i+2][j+2].equals(winning[i+3][j+3])){
+                                if (blank==3){
+                                    flag=true;
+                                }
+                                else if (winning[i+3][j+3].equals(winning[i+4][j+4])){
+                                    if (blank==4) flag=true;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         return flag;
