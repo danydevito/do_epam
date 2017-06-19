@@ -20,7 +20,12 @@ public class Game implements GameAble{
 
     public Game(String choice, int size) throws IOException {
 
-
+        int row;
+        if (size==3) row=3;
+        else if (size>7) row=5;
+        else row=4;
+        System.out.println("Ilość kółek/krzyżyków potrzebna do zwycięstwa: "+row);
+        System.out.println("Powodzenia!");
         ArrayList<String> list = cellsCheck.fillList(size);
         String[][] cells = new String[size][size];
         if (choice.equals("x"))queue=0;
